@@ -1,324 +1,780 @@
-{% set title = 'Dashboard' %}
+{% set title = 'E-Commerce Dashboard' %}
 {% set filename = 'index.html' %}
 
 {% extends 'src/layouts/master.html' %}
 
 {% block styles %}
 <link rel="stylesheet" href="/assets/scss/iconly.scss">
+<style>
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+    
+    #app {
+        background: transparent;
+    }
+    
+    #main {
+        background: transparent;
+    }
+    
+    .page-content {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        padding: 2rem;
+        margin: 1rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-card {
+        transition: transform 0.2s ease-in-out;
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        height: 100%;
+        min-height: 140px;
+    }
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+    .status-indicator {
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+    }
+    .status-indicator.online {
+        background-color: #10b981;
+    }
+    .status-indicator.offline {
+        background-color: #6b7280;
+    }
+    .unread-indicator {
+        width: 8px;
+        height: 8px;
+        background-color: #ef4444;
+        border-radius: 50%;
+        margin-left: auto;
+    }
+    .recent-message.unread {
+        background-color: rgba(59, 130, 246, 0.05);
+    }
+    .product-item {
+        transition: background-color 0.2s ease;
+    }
+    .product-item:hover {
+        background-color: rgba(59, 130, 246, 0.05);
+        border-radius: 8px;
+        padding: 8px;
+    }
+    .chart-container {
+        position: relative;
+        min-height: 300px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .page-heading {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        color: #1f2937;
+        padding: 2rem;
+        border-radius: 16px;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .page-heading h3 {
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+    }
+    .page-heading p {
+        color: #6b7280;
+        margin-bottom: 0;
+    }
+    .card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+    }
+    .card:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+    .card-header {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        border-bottom: 1px solid #e5e7eb;
+        padding: 1.5rem;
+        border-radius: 16px 16px 0 0;
+        position: relative;
+        overflow: hidden;
+    }
+    .card-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+    .card-header h4 {
+        margin-bottom: 0.25rem;
+        color: #25371f;
+        font-weight: 600;
+    }
+    .card-header p {
+        margin-bottom: 0;
+        color: #6b7280;
+        font-size: 0.875rem;
+    }
+    .stats-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        color: white;
+        margin-bottom: 1rem;
+    }
+    .stats-icon.green {
+        background: linear-gradient(135deg, #10b981, #34d399);
+    }
+    .stats-icon.blue {
+        background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    }
+    .stats-icon.purple {
+        background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    }
+    .stats-icon.orange {
+        background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    }
+        .stat-value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #1f2937;
+    }
+    .stat-change {
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+    .table {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .table thead th {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        border: none;
+        font-weight: 600;
+        color: #374151;
+        padding: 1rem;
+    }
+    .table tbody tr {
+        transition: background-color 0.2s ease;
+    }
+    .table tbody tr:hover {
+        background-color: rgba(59, 130, 246, 0.05);
+    }
+    .table tbody td {
+        padding: 1rem;
+        border: none;
+        vertical-align: middle;
+    }
+    .badge {
+        padding: 0.5rem 0.75rem;
+        font-weight: 600;
+        border-radius: 6px;
+        font-size: 0.75rem;
+    }
+    .badge.bg-success {
+        background: linear-gradient(135deg, #10b981, #34d399) !important;
+    }
+    .badge.bg-warning {
+        background: linear-gradient(135deg, #f59e0b, #fbbf24) !important;
+    }
+    .badge.bg-info {
+        background: linear-gradient(135deg, #3b82f6, #60a5fa) !important;
+    }
+    .badge.bg-secondary {
+        background: linear-gradient(135deg, #6b7280, #9ca3af) !important;
+    }
+    .badge.bg-danger {
+        background: linear-gradient(135deg, #ef4444, #f87171) !important;
+    }
+    .btn {
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border: none;
+    }
+    .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+    .btn-outline-primary {
+        border-color: #667eea;
+        color: #667eea;
+    }
+    .btn-outline-primary:hover {
+        background-color: #667eea;
+        border-color: #667eea;
+    }
+    @media (max-width: 768px) {
+        .stat-card {
+            margin-bottom: 1rem;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+        }
+        .stats-icon {
+            width: 48px;
+            height: 48px;
+            font-size: 1.25rem;
+        }
+        .chart-container {
+            min-height: 250px;
+            padding: 1rem;
+        }
+        .page-heading {
+            padding: 1.5rem;
+        }
+        .card-header {
+            padding: 1rem;
+        }
+        .page-content {
+            padding: 1rem;
+            margin: 0.5rem;
+        }
+    }
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="page-heading">
-    <h3>Profile Statistics</h3>
-</div> 
-<div class="page-content"> 
-    <section class="row">
-        <div class="col-12 col-lg-9">
-            <div class="row">
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                    <div class="stats-icon purple mb-2">
-                                        <i class="iconly-boldShow"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                    <h6 class="text-muted font-semibold">Profile Views</h6>
-                                    <h6 class="font-extrabold mb-0">112.000</h6>
-                                </div>
-                            </div> 
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h3>E-Commerce Dashboard</h3>
+            <p>Monitor your online store performance and sales analytics</p>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <!-- Stats Cards -->
+    <section class="row mb-4">
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card stat-card" id="total-sales">
+                <div class="card-body p-4">
+                    <div class="d-flex flex-column h-100">
+                        <div class="stats-icon green">
+                            <i class="bi bi-currency-dollar"></i>
                         </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card"> 
-                        <div class="card-body px-4 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                    <div class="stats-icon blue mb-2">
-                                        <i class="iconly-boldProfile"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                    <h6 class="text-muted font-semibold">Followers</h6>
-                                    <h6 class="font-extrabold mb-0">183.000</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                    <div class="stats-icon green mb-2">
-                                        <i class="iconly-boldAdd-User"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                    <h6 class="text-muted font-semibold">Following</h6>
-                                    <h6 class="font-extrabold mb-0">80.000</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-4 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                    <div class="stats-icon red mb-2">
-                                        <i class="iconly-boldBookmark"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                    <h6 class="text-muted font-semibold">Saved Post</h6>
-                                    <h6 class="font-extrabold mb-0">112</h6>
-                                </div>
-                            </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted font-semibold mb-2">Total Sales</h6>
+                            <h6 class="font-extrabold mb-0 stat-value">$2,845,000</h6>
+                            <p class="stat-change text-success mb-0">
+                                <i class="bi bi-arrow-up me-1"></i>+12.5%
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Profile Visit</h4>
+        </div>
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card stat-card" id="total-orders">
+                <div class="card-body p-4">
+                    <div class="d-flex flex-column h-100">
+                        <div class="stats-icon blue">
+                            <i class="bi bi-cart-check"></i>
                         </div>
-                        <div class="card-body">
-                            <div id="chart-profile-visit"></div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted font-semibold mb-2">Total Orders</h6>
+                            <h6 class="font-extrabold mb-0 stat-value">15,420</h6>
+                            <p class="stat-change text-success mb-0">
+                                <i class="bi bi-arrow-up me-1"></i>+8.2%
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-xl-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Profile Visit</h4>
+        </div>
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card stat-card" id="average-order">
+                <div class="card-body p-4">
+                    <div class="d-flex flex-column h-100">
+                        <div class="stats-icon purple">
+                            <i class="bi bi-graph-up"></i>
                         </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-7">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">Europe</h5>
-                                    </div>
-                                </div>
-                                <div class="col-5">
-                                    <h5 class="mb-0 text-end">862</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-europe"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-7">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-success" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">America</h5>
-                                    </div>
-                                </div>
-                                <div class="col-5">
-                                    <h5 class="mb-0 text-end">375</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-america"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-7">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-success" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">India</h5>
-                                    </div>
-                                </div>
-                                <div class="col-5">
-                                    <h5 class="mb-0 text-end">625</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-india"></div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-7">
-                                    <div class="d-flex align-items-center">
-                                        <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                            style="width:10px">
-                                            <use
-                                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                        </svg>
-                                        <h5 class="mb-0 ms-3">Indonesia</h5>
-                                    </div>
-                                </div>
-                                <div class="col-5">
-                                    <h5 class="mb-0 text-end">1025</h5>
-                                </div>
-                                <div class="col-12">
-                                    <div id="chart-indonesia"></div>
-                                </div>
-                            </div>
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted font-semibold mb-2">Avg Order Value</h6>
+                            <h6 class="font-extrabold mb-0 stat-value">$184.50</h6>
+                            <p class="stat-change text-danger mb-0">
+                                <i class="bi bi-arrow-down me-1"></i>-2.1%
+                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-xl-8">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Latest Comments</h4>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 col-md-6">
+            <div class="card stat-card" id="customer-satisfaction">
+                <div class="card-body p-4">
+                    <div class="d-flex flex-column h-100">
+                        <div class="stats-icon orange">
+                            <i class="bi bi-star-fill"></i>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Comment</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="assets/static/images/faces/5.jpg">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">Congratulations on your graduation!</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="assets/static/images/faces/2.jpg">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">Wow amazing design! Can you make another tutorial for
-                                                    this design?</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="assets/static/images/faces/8.jpg">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Singh Eknoor</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">What a stunning design! You are so talented and creative!</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="assets/static/images/faces/3.jpg">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Rani Jhadav</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">I love your design! It’s so beautiful and unique! How did you learn to do this?</p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="flex-grow-1">
+                            <h6 class="text-muted font-semibold mb-2">Customer Rating</h6>
+                            <h6 class="font-extrabold mb-0 stat-value">4.8/5</h6>
+                            <p class="stat-change text-success mb-0">
+                                <i class="bi bi-arrow-up me-1"></i>+0.3
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="row mb-4">
+        <div class="col-12 col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Monthly Sales Trend</h4>
+                    <p>Track your sales performance over time</p>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <div id="sales-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Sales by Category</h4>
+                    <p>Revenue distribution across product categories</p>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <div id="category-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Orders and Top Products -->
+    <section class="row mb-4">
+        <div class="col-12 col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Recent Orders</h4>
+                    <p>Latest customer orders and their status</p>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-lg" id="recent-orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Customer</th>
+                                    <th>Product</th>
+                                    <th>Status</th>
+                                    <th class="text-end">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="col-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-md">
+                                                <img src="assets/static/images/faces/1.jpg" alt="Sarah Johnson">
+                                            </div>
+                                            <div class="ms-3">
+                                                <p class="font-bold mb-0">Sarah Johnson</p>
+                                                <p class="text-muted mb-0 small">sarah.j@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-auto">
+                                        <p class="mb-0">Premium Wireless Headphones</p>
+                                        <p class="text-muted mb-0 small">ORD-001</p>
+                                    </td>
+                                    <td class="col-2">
+                                        <span class="badge bg-success">completed</span>
+                                    </td>
+                                    <td class="col-2 text-end">
+                                        <p class="font-bold mb-0">$299.99</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-md">
+                                                <img src="assets/static/images/faces/2.jpg" alt="Michael Chen">
+                                            </div>
+                                            <div class="ms-3">
+                                                <p class="font-bold mb-0">Michael Chen</p>
+                                                <p class="text-muted mb-0 small">mchen@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-auto">
+                                        <p class="mb-0">Smart Fitness Watch</p>
+                                        <p class="text-muted mb-0 small">ORD-002</p>
+                                    </td>
+                                    <td class="col-2">
+                                        <span class="badge bg-warning">processing</span>
+                                    </td>
+                                    <td class="col-2 text-end">
+                                        <p class="font-bold mb-0">$199.99</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar avatar-md">
+                                                <img src="assets/static/images/faces/3.jpg" alt="Emily Rodriguez">
+                                            </div>
+                                            <div class="ms-3">
+                                                <p class="font-bold mb-0">Emily Rodriguez</p>
+                                                <p class="text-muted mb-0 small">emily.r@email.com</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-auto">
+                                        <p class="mb-0">Portable Bluetooth Speaker</p>
+                                        <p class="text-muted mb-0 small">ORD-003</p>
+                                    </td>
+                                    <td class="col-2">
+                                        <span class="badge bg-info">shipped</span>
+                                    </td>
+                                    <td class="col-2 text-end">
+                                        <p class="font-bold mb-0">$89.99</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Top Products</h4>
+                    <p>Best performing products by revenue</p>
+                </div>
+                <div class="card-body">
+                    <div id="top-products-list">
+                        <div class="product-item d-flex align-items-center mb-3">
+                            <div class="product-image me-3">
+                                <img src="assets/static/images/samples/1.png" alt="Premium Wireless Headphones" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                            </div>
+                            <div class="product-info flex-grow-1">
+                                <h6 class="mb-1">Premium Wireless Headphones</h6>
+                                <p class="text-muted mb-1 small">Audio</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="stars me-2">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-half text-warning"></i>
+                                    </div>
+                                    <span class="text-muted small">4.8/5</span>
+                                </div>
+                            </div>
+                            <div class="product-stats text-end">
+                                <p class="font-bold mb-1">$374,987.50</p>
+                                <p class="text-muted mb-0 small">1,250 sold</p>
+                            </div>
+                        </div>
+                        <div class="product-item d-flex align-items-center mb-3">
+                            <div class="product-image me-3">
+                                <img src="assets/static/images/samples/2.png" alt="Smart Fitness Watch" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                            </div>
+                            <div class="product-info flex-grow-1">
+                                <h6 class="mb-1">Smart Fitness Watch</h6>
+                                <p class="text-muted mb-1 small">Wearables</p>
+                                <div class="d-flex align-items-center">
+                                    <div class="stars me-2">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star text-muted"></i>
+                                    </div>
+                                    <span class="text-muted small">4.6/5</span>
+                                </div>
+                            </div>
+                            <div class="product-stats text-end">
+                                <p class="font-bold mb-1">$195,980.20</p>
+                                <p class="text-muted mb-0 small">980 sold</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-3">
+    </section>
+
+    <!-- Customer Demographics and Recent Messages -->
+    <section class="row">
+        <div class="col-12 col-lg-6">
             <div class="card">
-                <div class="card-body py-4 px-4">
-                    <div class="d-flex align-items-center">
-                        <div class="avatar avatar-xl">
-                            <img src="assets/static/images/faces/1.jpg" alt="Face 1">
-                        </div>
-                        <div class="ms-3 name">
-                            <h5 class="font-bold">John Duck</h5>
-                            <h6 class="text-muted mb-0">@johnducky</h6>
-                        </div>
+                <div class="card-header">
+                    <h4>Customer Demographics</h4>
+                    <p>Age distribution of your customer base</p>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <div id="demographics-chart"></div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-12 col-lg-6">
             <div class="card">
                 <div class="card-header">
                     <h4>Recent Messages</h4>
+                    <p>Latest notifications and updates</p>
                 </div>
                 <div class="card-content pb-4">
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="assets/static/images/faces/4.jpg">
+                    <div id="recent-messages-list">
+                        <div class="recent-message d-flex px-4 py-3 unread">
+                            <div class="avatar avatar-lg position-relative">
+                                <img src="assets/static/images/faces/1.jpg" alt="Customer Support">
+                                <span class="status-indicator online"></span>
+                            </div>
+                            <div class="name ms-4 flex-grow-1">
+                                <h5 class="mb-1">Customer Support</h5>
+                                <p class="text-muted mb-0 small">New order #ORD-006 has been placed</p>
+                                <p class="text-muted mb-0 small">2 min ago</p>
+                            </div>
+                            <div class="unread-indicator"></div>
                         </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">Hank Schrader</h5>
-                            <h6 class="text-muted mb-0">@johnducky</h6>
+                        <div class="recent-message d-flex px-4 py-3 unread">
+                            <div class="avatar avatar-lg position-relative">
+                                <img src="assets/static/images/faces/2.jpg" alt="Inventory Manager">
+                                <span class="status-indicator online"></span>
+                            </div>
+                            <div class="name ms-4 flex-grow-1">
+                                <h5 class="mb-1">Inventory Manager</h5>
+                                <p class="text-muted mb-0 small">Low stock alert: Premium Headphones</p>
+                                <p class="text-muted mb-0 small">15 min ago</p>
+                            </div>
+                            <div class="unread-indicator"></div>
                         </div>
-                    </div>
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="assets/static/images/faces/5.jpg">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">Dean Winchester</h5>
-                            <h6 class="text-muted mb-0">@imdean</h6>
-                        </div>
-                    </div>
-                    <div class="recent-message d-flex px-4 py-3">
-                        <div class="avatar avatar-lg">
-                            <img src="assets/static/images/faces/1.jpg">
-                        </div>
-                        <div class="name ms-4">
-                            <h5 class="mb-1">John Dodol</h5>
-                            <h6 class="text-muted mb-0">@dodoljohn</h6>
+                        <div class="recent-message d-flex px-4 py-3">
+                            <div class="avatar avatar-lg position-relative">
+                                <img src="assets/static/images/faces/3.jpg" alt="Marketing Team">
+                                <span class="status-indicator offline"></span>
+                            </div>
+                            <div class="name ms-4 flex-grow-1">
+                                <h5 class="mb-1">Marketing Team</h5>
+                                <p class="text-muted mb-0 small">New campaign launched successfully</p>
+                                <p class="text-muted mb-0 small">1 hour ago</p>
+                            </div>
                         </div>
                     </div>
                     <div class="px-4">
-                        <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Start Conversation</button>
+                        <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>
+                            <i class="bi bi-chat-dots me-2"></i>
+                            View All Messages
+                        </button>
                     </div>
-                </div>
-            </div> 
-            <div class="card">
-                <div class="card-header">
-                    <h4>Visitors Profile</h4>
-                </div>
-                <div class="card-body">
-                    <div id="chart-visitors-profile"></div>
                 </div>
             </div>
         </div>
     </section>
 </div>
 {% endblock %}
+
 {% block js %}
-<!-- Need: Apexcharts -->
-<script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
-<script src="assets/static/js/pages/dashboard.js"></script>
+<!-- ApexCharts from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
+<script>
+// Sample data for charts
+const sampleData = {
+    monthlySales: [
+        { month: 'Jan', sales: 2.85 },
+        { month: 'Feb', sales: 3.20 },
+        { month: 'Mar', sales: 2.95 },
+        { month: 'Apr', sales: 3.10 },
+        { month: 'May', sales: 3.40 },
+        { month: 'Jun', sales: 3.60 },
+        { month: 'Jul', sales: 3.80 },
+        { month: 'Aug', sales: 3.95 },
+        { month: 'Sep', sales: 4.10 },
+        { month: 'Oct', sales: 4.25 },
+        { month: 'Nov', sales: 4.40 },
+        { month: 'Dec', sales: 4.60 }
+    ],
+    categories: [
+        { name: 'Audio', percentage: 35 },
+        { name: 'Wearables', percentage: 15 },
+        { name: 'Smart Home', percentage: 12 },
+        { name: 'Accessories', percentage: 10 },
+        { name: 'Computers', percentage: 8 },
+        { name: 'Others', percentage: 20 }
+    ],
+    demographics: [
+        { ageGroup: '18-24', percentage: 15 },
+        { ageGroup: '25-34', percentage: 35 },
+        { ageGroup: '35-44', percentage: 25 },
+        { ageGroup: '45-54', percentage: 15 },
+        { ageGroup: '55+', percentage: 10 }
+    ]
+};
+
+// Initialize charts when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Sales Trend Chart
+    const salesChart = new ApexCharts(document.getElementById('sales-chart'), {
+        series: [{
+            name: 'Sales (Millions)',
+            data: sampleData.monthlySales.map(item => item.sales)
+        }],
+        chart: {
+            type: 'area',
+            height: 350,
+            toolbar: { show: false },
+            background: 'transparent'
+        },
+        dataLabels: { enabled: false },
+        stroke: {
+            curve: 'smooth',
+            width: 3
+        },
+        colors: ['#667eea'],
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                opacityFrom: 0.7,
+                opacityTo: 0.1,
+                stops: [0, 90, 100]
+            }
+        },
+        xaxis: {
+            categories: sampleData.monthlySales.map(item => item.month),
+            labels: { style: { colors: '#6b7280' } }
+        },
+        yaxis: {
+            labels: {
+                formatter: function(value) { return '$' + value + 'M'; },
+                style: { colors: '#6b7280' }
+            }
+        },
+        tooltip: {
+            y: {
+                formatter: function(value) { return '$' + (value * 1000000).toLocaleString(); }
+            }
+        },
+        grid: {
+            borderColor: '#e5e7eb',
+            strokeDashArray: 4
+        }
+    });
+    salesChart.render();
+
+    // Category Chart
+    const categoryChart = new ApexCharts(document.getElementById('category-chart'), {
+        series: sampleData.categories.map(item => item.percentage),
+        chart: {
+            type: 'donut',
+            height: 300,
+            background: 'transparent'
+        },
+        labels: sampleData.categories.map(item => item.name),
+        colors: ['#667eea', '#38b2ac', '#f59e0b', '#ef4444', '#8b5cf6', '#10b981'],
+        plotOptions: {
+            pie: { donut: { size: '60%' } }
+        },
+        legend: {
+            position: 'bottom',
+            labels: { colors: '#6b7280' }
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: { width: 200 },
+                legend: { position: 'bottom' }
+            }
+        }]
+    });
+    categoryChart.render();
+
+    // Demographics Chart
+    const demographicsChart = new ApexCharts(document.getElementById('demographics-chart'), {
+        series: [{
+            name: 'Percentage',
+            data: sampleData.demographics.map(item => item.percentage)
+        }],
+        chart: {
+            type: 'bar',
+            height: 300,
+            toolbar: { show: false },
+            background: 'transparent'
+        },
+        colors: ['#667eea', '#38b2ac', '#f59e0b', '#ef4444', '#8b5cf6'],
+        plotOptions: {
+            bar: {
+                horizontal: true,
+                dataLabels: { position: 'top' },
+                borderRadius: 4
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            formatter: function(val) { return val + '%'; },
+            style: { fontSize: '12px', colors: ['#fff'] }
+        },
+        xaxis: {
+            categories: sampleData.demographics.map(item => item.ageGroup),
+            labels: {
+                formatter: function(val) { return val + '%'; },
+                style: { colors: '#6b7280' }
+            }
+        },
+        yaxis: {
+            labels: {
+                show: true,
+                style: { colors: '#6b7280' }
+            }
+        },
+        grid: {
+            borderColor: '#e5e7eb',
+            strokeDashArray: 4
+        }
+    });
+    demographicsChart.render();
+});
+</script>
 {% endblock %}

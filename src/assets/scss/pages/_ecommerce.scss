@@ -1,0 +1,555 @@
+// E-commerce Dashboard Styles
+
+// Custom variables
+$ecommerce-primary: #667eea;
+$ecommerce-secondary: #764ba2;
+$ecommerce-success: #10b981;
+$ecommerce-warning: #f59e0b;
+$ecommerce-danger: #ef4444;
+$ecommerce-info: #3b82f6;
+
+// Enhanced card styles
+.stat-card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    
+    &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .card-body {
+        padding: 2rem;
+    }
+    
+    .stats-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        color: white;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        
+        &.green {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+        
+        &.blue {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+        }
+        
+        &.purple {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+        }
+        
+        &.orange {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        }
+        
+        &.red {
+            background: linear-gradient(135deg, #ef4444, #f87171);
+        }
+    }
+    
+    .stat-value {
+        font-size: 2.25rem;
+        font-weight: 800;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+    }
+    
+    .stat-change {
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        display: inline-block;
+        
+        &.text-success {
+            color: $ecommerce-success !important;
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        &.text-danger {
+            color: $ecommerce-danger !important;
+            background: rgba(239, 68, 68, 0.1);
+        }
+    }
+}
+
+// Chart container enhancements
+.chart-container {
+    position: relative;
+    min-height: 350px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    padding: 2rem;
+    margin: 1.5rem 0;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+// Enhanced table styles
+.table {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    
+    thead th {
+        background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+        border: none;
+        font-weight: 700;
+        color: #374151;
+        padding: 1.5rem 1rem;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    
+    tbody tr {
+        transition: all 0.3s ease;
+        
+        &:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+            transform: scale(1.01);
+        }
+        
+        td {
+            padding: 1.5rem 1rem;
+            border: none;
+            vertical-align: middle;
+        }
+    }
+}
+
+// Badge enhancements
+.badge {
+    padding: 0.75rem 1rem;
+    font-weight: 700;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    
+    &.bg-success {
+        background: linear-gradient(135deg, #10b981, #34d399) !important;
+    }
+    
+    &.bg-warning {
+        background: linear-gradient(135deg, #f59e0b, #fbbf24) !important;
+    }
+    
+    &.bg-info {
+        background: linear-gradient(135deg, #3b82f6, #60a5fa) !important;
+    }
+    
+    &.bg-secondary {
+        background: linear-gradient(135deg, #6b7280, #9ca3af) !important;
+    }
+    
+    &.bg-danger {
+        background: linear-gradient(135deg, #ef4444, #f87171) !important;
+    }
+}
+
+// Product item styles
+.product-item {
+    padding: 1.5rem;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    margin-bottom: 1rem;
+    
+    &:hover {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+        border-color: rgba(102, 126, 234, 0.2);
+        transform: translateX(8px);
+    }
+    
+    .product-image img {
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+    
+    .stars {
+        .bi-star-fill,
+        .bi-star-half {
+            color: $ecommerce-warning;
+        }
+        
+        .bi-star {
+            color: #d1d5db;
+        }
+    }
+}
+
+// Message styles
+.recent-message {
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    
+    &.unread {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+        border-left: 4px solid $ecommerce-primary;
+        padding-left: 1rem;
+    }
+    
+    .status-indicator {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 3px solid white;
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        
+        &.online {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+        
+        &.offline {
+            background: linear-gradient(135deg, #6b7280, #9ca3af);
+        }
+    }
+    
+    .unread-indicator {
+        width: 10px;
+        height: 10px;
+        background: linear-gradient(135deg, #ef4444, #f87171);
+        border-radius: 50%;
+        margin-left: auto;
+        box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    }
+}
+
+// Button enhancements
+.btn {
+    border-radius: 16px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.875rem 1.5rem;
+    
+    &.btn-primary {
+        background: linear-gradient(135deg, $ecommerce-primary, $ecommerce-secondary);
+        border: none;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+        
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+    }
+    
+    &.btn-outline-primary {
+        border: 2px solid $ecommerce-primary;
+        color: $ecommerce-primary;
+        background: transparent;
+        
+        &:hover {
+            background: linear-gradient(135deg, $ecommerce-primary, $ecommerce-secondary);
+            border-color: $ecommerce-primary;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+    }
+}
+
+// Card header enhancements
+.card-header {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border-bottom: 1px solid #e5e7eb;
+    padding: 2rem;
+    border-radius: 20px 20px 0 0;
+    
+    h4 {
+        margin-bottom: 0.5rem;
+        color: #1f2937;
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+    
+    p {
+        margin-bottom: 0;
+        color: #6b7280;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+}
+
+// Page heading enhancements
+.page-heading {
+    background: linear-gradient(135deg, $ecommerce-primary, $ecommerce-secondary);
+    color: white;
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+    
+    h3 {
+        color: white;
+        margin-bottom: 0.75rem;
+        font-weight: 800;
+        font-size: 2rem;
+    }
+    
+    p {
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 0;
+        font-size: 1.125rem;
+        font-weight: 500;
+    }
+}
+
+// Card enhancements
+.card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    
+    &:hover {
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+        transform: translateY(-4px);
+    }
+}
+
+// Responsive enhancements
+@media (max-width: 768px) {
+    .stat-card {
+        margin-bottom: 1.5rem;
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .stat-value {
+            font-size: 1.75rem;
+        }
+        
+        .stats-icon {
+            width: 48px;
+            height: 48px;
+            font-size: 1.25rem;
+        }
+    }
+    
+    .chart-container {
+        min-height: 280px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+    
+    .page-heading {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+        
+        h3 {
+            font-size: 1.5rem;
+        }
+        
+        p {
+            font-size: 1rem;
+        }
+    }
+    
+    .card-header {
+        padding: 1.5rem;
+        
+        h4 {
+            font-size: 1.125rem;
+        }
+    }
+    
+    .table {
+        font-size: 0.875rem;
+        
+        thead th {
+            padding: 1rem 0.75rem;
+        }
+        
+        tbody td {
+            padding: 1rem 0.75rem;
+        }
+    }
+    
+    .btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .stat-card {
+        .card-body {
+            padding: 1rem;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+        }
+    }
+    
+    .chart-container {
+        min-height: 250px;
+        padding: 1rem;
+    }
+    
+    .page-heading {
+        padding: 1.5rem 1rem;
+        
+        h3 {
+            font-size: 1.25rem;
+        }
+        
+        p {
+            font-size: 0.875rem;
+        }
+    }
+    
+    .product-item {
+        padding: 1rem;
+        
+        .product-image img {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
+// Dark mode support
+[data-bs-theme="dark"] {
+    .stat-card {
+        background: linear-gradient(135deg, #1f2937, #374151);
+        color: #f9fafb;
+        
+        .stat-value {
+            color: #f9fafb;
+        }
+    }
+    
+    .card-header {
+        background: linear-gradient(135deg, #374151, #4b5563);
+        border-bottom-color: #4b5563;
+        
+        h4 {
+            color: #f9fafb;
+        }
+        
+        p {
+            color: #d1d5db;
+        }
+    }
+    
+    .page-heading {
+        background: linear-gradient(135deg, #374151, #4b5563);
+        
+        h3 {
+            color: #f9fafb;
+        }
+        
+        p {
+            color: #d1d5db;
+        }
+    }
+    
+    .table {
+        thead th {
+            background: linear-gradient(135deg, #374151, #4b5563);
+            color: #f9fafb;
+        }
+        
+        tbody tr:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        }
+    }
+    
+    .chart-container {
+        background: linear-gradient(135deg, #1f2937, #374151);
+    }
+}
+
+// Animation keyframes
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Loading states
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .spinner-border {
+        width: 2.5rem;
+        height: 2.5rem;
+        color: $ecommerce-primary;
+    }
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, $ecommerce-primary, $ecommerce-secondary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, darken($ecommerce-primary, 10%), darken($ecommerce-secondary, 10%));
+} 

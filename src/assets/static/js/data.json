@@ -1,0 +1,300 @@
+{
+  "dashboard": {
+    "stats": {
+      "totalSales": {
+        "value": 2845000,
+        "currency": "USD",
+        "change": 12.5,
+        "trend": "up"
+      },
+      "totalOrders": {
+        "value": 15420,
+        "change": 8.2,
+        "trend": "up"
+      },
+      "averageOrderValue": {
+        "value": 184.50,
+        "currency": "USD",
+        "change": -2.1,
+        "trend": "down"
+      },
+      "customerSatisfaction": {
+        "value": 4.8,
+        "maxValue": 5,
+        "change": 0.3,
+        "trend": "up"
+      }
+    },
+    "recentOrders": [
+      {
+        "id": "ORD-001",
+        "customer": {
+          "name": "Sarah Johnson",
+          "email": "sarah.j@email.com",
+          "avatar": "assets/static/images/faces/1.jpg"
+        },
+        "product": "Premium Wireless Headphones",
+        "amount": 299.99,
+        "status": "completed",
+        "date": "2024-01-15T10:30:00Z"
+      },
+      {
+        "id": "ORD-002",
+        "customer": {
+          "name": "Michael Chen",
+          "email": "mchen@email.com",
+          "avatar": "assets/static/images/faces/2.jpg"
+        },
+        "product": "Smart Fitness Watch",
+        "amount": 199.99,
+        "status": "processing",
+        "date": "2024-01-15T09:15:00Z"
+      },
+      {
+        "id": "ORD-003",
+        "customer": {
+          "name": "Emily Rodriguez",
+          "email": "emily.r@email.com",
+          "avatar": "assets/static/images/faces/3.jpg"
+        },
+        "product": "Portable Bluetooth Speaker",
+        "amount": 89.99,
+        "status": "shipped",
+        "date": "2024-01-15T08:45:00Z"
+      },
+      {
+        "id": "ORD-004",
+        "customer": {
+          "name": "David Kim",
+          "email": "dkim@email.com",
+          "avatar": "assets/static/images/faces/4.jpg"
+        },
+        "product": "Wireless Charging Pad",
+        "amount": 49.99,
+        "status": "pending",
+        "date": "2024-01-15T08:20:00Z"
+      },
+      {
+        "id": "ORD-005",
+        "customer": {
+          "name": "Lisa Thompson",
+          "email": "lisa.t@email.com",
+          "avatar": "assets/static/images/faces/5.jpg"
+        },
+        "product": "Smart Home Hub",
+        "amount": 159.99,
+        "status": "completed",
+        "date": "2024-01-15T07:55:00Z"
+      }
+    ],
+    "topProducts": [
+      {
+        "name": "Premium Wireless Headphones",
+        "category": "Audio",
+        "sales": 1250,
+        "revenue": 374987.50,
+        "rating": 4.8,
+        "image": "assets/static/images/samples/1.png"
+      },
+      {
+        "name": "Smart Fitness Watch",
+        "category": "Wearables",
+        "sales": 980,
+        "revenue": 195980.20,
+        "rating": 4.6,
+        "image": "assets/static/images/samples/2.png"
+      },
+      {
+        "name": "Portable Bluetooth Speaker",
+        "category": "Audio",
+        "sales": 750,
+        "revenue": 67492.50,
+        "rating": 4.7,
+        "image": "assets/static/images/samples/3.png"
+      },
+      {
+        "name": "Wireless Charging Pad",
+        "category": "Accessories",
+        "sales": 1200,
+        "revenue": 59988.00,
+        "rating": 4.5,
+        "image": "assets/static/images/samples/4.png"
+      },
+      {
+        "name": "Smart Home Hub",
+        "category": "Smart Home",
+        "sales": 450,
+        "revenue": 71995.50,
+        "rating": 4.9,
+        "image": "assets/static/images/samples/5.png"
+      }
+    ],
+    "salesByCategory": [
+      {
+        "category": "Audio",
+        "sales": 442480.00,
+        "percentage": 35
+      },
+      {
+        "category": "Wearables",
+        "sales": 195980.20,
+        "percentage": 15
+      },
+      {
+        "category": "Smart Home",
+        "sales": 71995.50,
+        "percentage": 12
+      },
+      {
+        "category": "Accessories",
+        "sales": 59988.00,
+        "percentage": 10
+      },
+      {
+        "category": "Computers",
+        "sales": 89982.30,
+        "percentage": 8
+      },
+      {
+        "category": "Others",
+        "sales": 374574.00,
+        "percentage": 20
+      }
+    ],
+    "monthlySales": [
+      {
+        "month": "Jan",
+        "sales": 2850000,
+        "orders": 15420
+      },
+      {
+        "month": "Feb",
+        "sales": 3200000,
+        "orders": 16800
+      },
+      {
+        "month": "Mar",
+        "sales": 2950000,
+        "orders": 15200
+      },
+      {
+        "month": "Apr",
+        "sales": 3100000,
+        "orders": 16200
+      },
+      {
+        "month": "May",
+        "sales": 3400000,
+        "orders": 17800
+      },
+      {
+        "month": "Jun",
+        "sales": 3600000,
+        "orders": 18500
+      },
+      {
+        "month": "Jul",
+        "sales": 3800000,
+        "orders": 19200
+      },
+      {
+        "month": "Aug",
+        "sales": 3950000,
+        "orders": 19800
+      },
+      {
+        "month": "Sep",
+        "sales": 4100000,
+        "orders": 20500
+      },
+      {
+        "month": "Oct",
+        "sales": 4250000,
+        "orders": 21200
+      },
+      {
+        "month": "Nov",
+        "sales": 4400000,
+        "orders": 22000
+      },
+      {
+        "month": "Dec",
+        "sales": 4600000,
+        "orders": 23000
+      }
+    ],
+    "customerDemographics": [
+      {
+        "ageGroup": "18-24",
+        "percentage": 15,
+        "color": "#435ebe"
+      },
+      {
+        "ageGroup": "25-34",
+        "percentage": 35,
+        "color": "#38b2ac"
+      },
+      {
+        "ageGroup": "35-44",
+        "percentage": 25,
+        "color": "#f59e0b"
+      },
+      {
+        "ageGroup": "45-54",
+        "percentage": 15,
+        "color": "#ef4444"
+      },
+      {
+        "ageGroup": "55+",
+        "percentage": 10,
+        "color": "#8b5cf6"
+      }
+    ],
+    "recentMessages": [
+      {
+        "id": 1,
+        "sender": {
+          "name": "Customer Support",
+          "avatar": "assets/static/images/faces/1.jpg",
+          "status": "online"
+        },
+        "message": "New order #ORD-006 has been placed",
+        "time": "2 min ago",
+        "unread": true
+      },
+      {
+        "id": 2,
+        "sender": {
+          "name": "Inventory Manager",
+          "avatar": "assets/static/images/faces/2.jpg",
+          "status": "online"
+        },
+        "message": "Low stock alert: Premium Headphones",
+        "time": "15 min ago",
+        "unread": true
+      },
+      {
+        "id": 3,
+        "sender": {
+          "name": "Marketing Team",
+          "avatar": "assets/static/images/faces/3.jpg",
+          "status": "offline"
+        },
+        "message": "New campaign launched successfully",
+        "time": "1 hour ago",
+        "unread": false
+      },
+      {
+        "id": 4,
+        "sender": {
+          "name": "Sales Manager",
+          "avatar": "assets/static/images/faces/4.jpg",
+          "status": "online"
+        },
+        "message": "Monthly sales target achieved!",
+        "time": "2 hours ago",
+        "unread": false
+      }
+    ]
+  }
+} 

@@ -1,12 +1,84 @@
 [
   {
-    "name": "Menu",
+    "name": "E-Commerce",
     "isTitle": true
   },
   {
     "name": "Dashboard",
     "url": "index.html",
     "icon": "grid-fill"
+  },
+  {
+    "name": "Orders",
+    "url": "#",
+    "icon": "cart-check",
+    "submenu": [
+      {
+        "name": "All Orders",
+        "url": "#"
+      },
+      {
+        "name": "Pending Orders",
+        "url": "#"
+      },
+      {
+        "name": "Completed Orders",
+        "url": "#"
+      }
+    ]
+  },
+  {
+    "name": "Products",
+    "url": "#",
+    "icon": "box",
+    "submenu": [
+      {
+        "name": "All Products",
+        "url": "#"
+      },
+      {
+        "name": "Add Product",
+        "url": "#"
+      },
+      {
+        "name": "Categories",
+        "url": "#"
+      }
+    ]
+  },
+  {
+    "name": "Customers",
+    "url": "#",
+    "icon": "people",
+    "submenu": [
+      {
+        "name": "Customer List",
+        "url": "#"
+      },
+      {
+        "name": "Customer Analytics",
+        "url": "#"
+      }
+    ]
+  },
+  {
+    "name": "Analytics",
+    "url": "#",
+    "icon": "graph-up",
+    "submenu": [
+      {
+        "name": "Sales Analytics",
+        "url": "#"
+      },
+      {
+        "name": "Product Analytics",
+        "url": "#"
+      },
+      {
+        "name": "Customer Analytics",
+        "url": "#"
+      }
+    ]
   },
   {
     "name": "Components",
